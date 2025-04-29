@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mark Statement with Member Name</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h2> Mark Statement:</h2>
+
+<table>
+  <tr>
+    <th>Member Name</th>
+    <th>Subject 1</th>
+    <th>Subject 2</th>
+    <th>Subject 3</th>
+    <th>Subject 4</th>
+    <th>Subject 5</th>
+  </tr>
+
+  <!-- Member Rows -->
+  <tr>
+    <td><input type="text" id="name1" placeholder="Enter Name"></td>
+    <td><input type="number" id="m1s1"></td>
+    <td><input type="number" id="m1s2"></td>
+    <td><input type="number" id="m1s3"></td>
+    <td><input type="number" id="m1s4"></td>
+    <td><input type="number" id="m1s5"></td>
+  </tr>
+
+  <tr>
+    <td><input type="text" id="name2" placeholder="Enter Name"></td>
+    <td><input type="number" id="m2s1"></td>
+    <td><input type="number" id="m2s2"></td>
+    <td><input type="number" id="m2s3"></td>
+    <td><input type="number" id="m2s4"></td>
+    <td><input type="number" id="m2s5"></td>
+  </tr>
+
+  <tr>
+    <td><input type="text" id="name3" placeholder="Enter Name"></td>
+    <td><input type="number" id="m3s1"></td>
+    <td><input type="number" id="m3s2"></td>
+    <td><input type="number" id="m3s3"></td>
+    <td><input type="number" id="m3s4"></td>
+    <td><input type="number" id="m3s5"></td>
+  </tr>
+
+  <tr>
+    <td><input type="text" id="name4" placeholder="Enter Name"></td>
+    <td><input type="number" id="m4s1"></td>
+    <td><input type="number" id="m4s2"></td>
+    <td><input type="number" id="m4s3"></td>
+    <td><input type="number" id="m4s4"></td>
+    <td><input type="number" id="m4s5"></td>
+  </tr>
+
+  <tr>
+    <td><input type="text" id="name5" placeholder="Enter Name"></td>
+    <td><input type="number" id="m5s1"></td>
+    <td><input type="number" id="m5s2"></td>
+    <td><input type="number" id="m5s3"></td>
+    <td><input type="number" id="m5s4"></td>
+    <td><input type="number" id="m5s5"></td>
+  </tr>
+
+</table>
+
+<br>
+
+<button onclick="calculateResult()">Show Result</button>
+
+<div id="output"></div>
+
+<script>
+function calculateResult() {
+  let output = "<h3>Mark Statement Result</h3><table><tr><th>Member Name</th><th>Total</th><th>Percentage</th><th>Result</th></tr>";
+
+  for (let m = 1; m <= 5; m++) {
+    let name = document.getElementById('name' + m).value || "Member " + m;
+    let total = 0;
+
+    for (let s = 1; s <= 5; s++) {
+      let mark = parseFloat(document.getElementById('m' + m + 's' + s).value) || 0;
+      total += mark;
+    }
+
+    let percentage = (total / 500) * 100;
+    let grade = (percentage < 50) ? "Average" : "Good";
+
+    output += "<tr><td>" + name + "</td><td>" + total + "</td><td>" + percentage.toFixed(2) + "%</td><td>" + grade + "</td></tr>";
+  }
+
+  output += "</table>";
+  document.getElementById('output').innerHTML = output;
+}
+</script>
+
+</body>
+</html>

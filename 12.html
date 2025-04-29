@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Marks Total Using Array</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        table { border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: center; }
+        input { width: 80px; padding: 5px; }
+        button { padding: 10px 15px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<h2 style="color: brown;">Student Marks Total</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Tamil</th>
+        <th>English</th>
+        <th>Maths</th>
+        <th>Total</th>
+    </tr>
+
+    <!-- 5 Students Input -->
+    <tbody id="studentData">
+        <tr>
+            <td><input type="text" id="name1"></td>
+            <td><input type="number" id="eng1"></td>
+            <td><input type="number" id="tam1"></td>
+            <td><input type="number" id="mat1"></td>
+            <td id="total1"></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="name2"></td>
+            <td><input type="number" id="eng2"></td>
+            <td><input type="number" id="tam2"></td>
+            <td><input type="number" id="mat2"></td>
+            <td id="total2"></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="name3"></td>
+            <td><input type="number" id="eng3"></td>
+            <td><input type="number" id="tam3"></td>
+            <td><input type="number" id="mat3"></td>
+            <td id="total3"></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="name4"></td>
+            <td><input type="number" id="eng4"></td>
+            <td><input type="number" id="tam4"></td>
+            <td><input type="number" id="mat4"></td>
+            <td id="total4"></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="name5"></td>
+            <td><input type="number" id="eng5"></td>
+            <td><input type="number" id="tam5"></td>
+            <td><input type="number" id="mat5"></td>
+            <td id="total5"></td>
+        </tr>
+    </tbody>
+</table>
+
+<button onclick="calculateTotal()">submit</button>
+
+<script>
+function calculateTotal() {
+    let students = [];
+
+    for (let i = 1; i <= 5; i++) {
+        let student = {
+            name: document.getElementById('name' + i).value || "Student " + i,
+            eng: Number(document.getElementById('eng' + i).value) || 0,
+            tam: Number(document.getElementById('tam' + i).value) || 0,
+            mat: Number(document.getElementById('mat' + i).value) || 0
+        };
+
+        students.push(student);
+    }
+
+    // Calculate total for each student
+    students.forEach((student, index) => {
+        let total = student.eng + student.tam + student.mat;
+        document.getElementById('total' + (index + 1)).innerText = student.name + " Total = " + total;
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input { margin: 5px; padding: 5px; }
+    </style>
+</head>
+<body>
+
+<h2>Student Marksheet</h2>
+
+<label>Subject 1: <input type="number" id="sub1"></label><br>
+<label>Subject 2: <input type="number" id="sub2"></label><br>
+<label>Subject 3: <input type="number" id="sub3"></label><br>
+<label>Subject 4: <input type="number" id="sub4"></label><br>
+<label>Subject 5: <input type="number" id="sub5"></label><br><br>
+
+<button onclick="calculateResult()">Show Result</button>
+
+<h3>Result</h3>
+
+<label>Total Marks: <input type="text" id="total" readonly></label><br>
+<label>Grade: <input type="text" id="grade" readonly></label><br>
+<label>Remark: <input type="text" id="remark" readonly></label><br>
+
+<script>
+function calculateResult() {
+    let m1 = parseInt(document.getElementById('sub1').value) || 0;
+    let m2 = parseInt(document.getElementById('sub2').value) || 0;
+    let m3 = parseInt(document.getElementById('sub3').value) || 0;
+    let m4 = parseInt(document.getElementById('sub4').value) || 0;
+    let m5 = parseInt(document.getElementById('sub5').value) || 0;
+
+    let total = m1 + m2 + m3 + m4 + m5;
+    let percentage = (total / 500) * 100;
+
+    let grade = "";
+    if (percentage >= 80) {
+        grade = "A+";
+    } else if (percentage >= 60) {
+        grade = "A";
+    } else if (percentage >= 50) {
+        grade = "B";
+    } else {
+        grade = "C";
+    }
+
+    let remark = percentage >= 50 ? "Good" : "Below Average";
+
+    document.getElementById('total').value = total + " / 500";
+    document.getElementById('grade').value = grade;
+    document.getElementById('remark').value = remark;
+}
+</script>
+
+</body>
+</html>

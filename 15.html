@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPTCHA Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+        }
+        button, input {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Text CAPTCHA with Background</h2>
+    <canvas id="captchaCanvas" width="200" height="80"></canvas>
+    <br>
+    <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+    <button onclick="validateCaptcha()">Submit</button>
+    <button onclick="generateCaptcha()">Refresh</button>
+    <p id="captchaMessage"></p>
+
+    <script>
+        let captchaText = "";
+
+        function generateCaptcha() {
+            const canvas = document.getElementById("captchaCanvas");
+            const ctx = canvas.getContext("2d");
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Background pattern
+            ctx.fillStyle = "#e0e0e0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = "#d0d0d0";
+            for (let i = 0; i < canvas.width; i += 5) {
+                for (let j = 0; j < canvas.height; j += 5) {
+                    ctx.fillRect(i, j, 1, 1);
+                }
+            }
+
+            // Generate random CAPTCHA text
+            captchaText = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+            // Add distortion lines
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.strokeStyle = "#888";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Draw CAPTCHA text with slight rotation and random placement
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "#333";
+            ctx.textAlign = "center";
+
+            for (let i = 0; i < captchaText.length; i++) {
+                let x = 40 + i * 25;
+                let y = 40 + Math.random() * 10;
+                let angle = (Math.random() - 0.5) * 0.2;
+                
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(angle);
+                ctx.fillText(captchaText[i], 0, 0);
+                ctx.restore();
+            }
+        }
+
+        function validateCaptcha() {
+            const userInput = document.getElementById("captchaInput").value.toUpperCase();
+            const message = document.getElementById("captchaMessage");
+
+            if (userInput === captchaText) {
+                message.style.color = "green";
+                message.textContent = "CAPTCHA Verified!";
+            } else {
+                message.style.color = "red";
+                message.textContent = "Incorrect CAPTCHA. Try again!";
+            }
+        }
+
+        // Generate CAPTCHA on page load
+        window.onload = generateCaptcha;
+    </script>
+
+</body>
+</html>
